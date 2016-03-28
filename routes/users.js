@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
-router.get('/:word', function(req, res){
-	res.send(req.params.word);
+router.get('/:word/:neword', function(req, res){
+	res.send({word: req.params.word, newword:neword});
 })
 module.exports = router;
