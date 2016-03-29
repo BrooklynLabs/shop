@@ -2,7 +2,7 @@
 var fs			= require('fs');
 var randomstring= require('randomstring');
 var MongoClient = require('mongodb').MongoClient;
-var url 		= 'mongodb://admin:Y_hiHs9Z-uTz@shopylytics-c0dezer0.rhcloud.com/shopylytics';
+var url 		= 'mongodb://admin:Y_hiHs9Z-uTz@localhost:27017/shopylytics';
 MongoClient.connect(url, function(err, database){
 	db = database;
 	console.log(db, err);
