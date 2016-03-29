@@ -19,27 +19,27 @@ var url 		= 'mongodb://'+connection_string;
 
 module.exports = {
 	register:function (req, res){
-		res.send("success");
-		// var obj = req.body;
-		// if(!obj.name||!obj.phone||!obj.password){
-		// 	res.send({error:"inappropriate parameters passed"});
-		// 	return;
-		// }
-		// obj.user_id = randomstring.generate(20);
-		// obj.date_joined = (new Date()).getTime();
-		// obj.address 	= obj.address?obj.address:"";
-		// MongoClient.connect(url, function(err, db){
-		// 	db.collenction('user').insert(obj, function(err, result){
-		// 		if(!err){
-		// 			delete obj.password;
-		// 			res.send({error:err, data:obj});
-		// 		}
-		// 		else{
-		// 			res.send({error:err});
-		// 		}
-		// 		db.close();
-		// 	})
-		// })
+		res.send(req.body);
+		var obj = req.body;
+		if(!obj.name||!obj.phone||!obj.password){
+			res.send({error:"inappropriate parameters passed"});
+			return;
+		}
+		obj.user_id = randomstring.generate(20);
+		obj.date_joined = (new Date()).getTime();
+		obj.address 	= obj.address?obj.address:"";
+		MongoClient.connect(url, function(err, db){
+			db.collenction('user').insert(obj, function(err, result){
+				if(!err){
+					delete obj.password;
+					res.send({error:err, data:obj});
+				}
+				else{
+					res.send({error:err});
+				}
+				db.close();
+			})
+		})
 
 	},
 	get_user: function(req, res){
