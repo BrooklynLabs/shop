@@ -16,9 +16,13 @@ module.exports = {
 		MongoClient.connect(url, function(err, database){
 			db = database;
 			console.log(db, err);
+			if(!err)
 			db.collection('sms').insert(obj, function(err, result){
 				res.send({error: err, status: result});
 			})
+			else{
+				res.send({error:err});
+			}
 		})
 		//res.send(req.body);
 	}
