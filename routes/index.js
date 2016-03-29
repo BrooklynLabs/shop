@@ -1,5 +1,5 @@
 var express = require('express');
-var index = require('../controllers/index.controller.js');
+var index = require('../controller/index.controller.js');
 var router = express.Router();
 
 /* GET home page. */
