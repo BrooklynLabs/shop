@@ -29,7 +29,7 @@ module.exports = {
 		obj.date_joined = (new Date()).getTime();
 		obj.address 	= obj.address?obj.address:"";
 		MongoClient.connect(url, function(err, db){
-			db.collenction('user').insert(obj, function(err, result){
+			db.collection('user').insert(obj, function(err, result){
 				if(!err){
 					delete obj.password;
 					res.send({error:err, data:obj});
