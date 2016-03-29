@@ -11,7 +11,7 @@ if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
   process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
   process.env.OPENSHIFT_APP_NAME;
 }
-var url 		= connection_string;
+var url 		= 'mongodb://'+connection_string;
 MongoClient.connect(url, function(err, database){
 	db = database;
 	console.log(db, err);
