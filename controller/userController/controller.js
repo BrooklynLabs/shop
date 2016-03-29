@@ -32,6 +32,7 @@ module.exports = {
 			db.collection('user').insert(obj, function(err, result){
 				if(!err){
 					delete obj.password;
+					delete obj._id;
 					res.send({error:err, data:obj});
 				}
 				else{
