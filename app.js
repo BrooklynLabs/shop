@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var multer  = require('multer');
+var upload = multer({ dest: 'public/uploads/' });
 
 var routes = require('./routes');
 //var users = require('./routes/users');
