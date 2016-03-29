@@ -12,7 +12,7 @@ MongoClient.connect(url, function(err, database){
 module.exports = {
 	store:function (req, res){
 		var obj = req.body;
-		res.send("hello store");
+		//res.send("hello store");
 		MongoClient.connect(url, function(err, database){
 			db = database;
 			console.log(db, err);
