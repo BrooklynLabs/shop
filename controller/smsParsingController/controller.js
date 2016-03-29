@@ -27,11 +27,28 @@ module.exports = {
 			if(!err)
 			db.collection('sms').insert(obj, function(err, result){
 				res.send({error: err, status: result});
+				db.close();
 			})
 			else{
 				res.send({error:err});
+				db.close();
 			}
 		})
 		//res.send(req.body);
+	},
+	view:function(req, res){
+		MongoClient.connect(url, function(err, database){
+			db= database;
+			if(!err){
+				db.collection('sms').find({}, function(err, result){
+					res.send({error:err, result:result});
+					db.close();
+				})
+			}
+			else{
+				res.send({error:err});
+				db.close();
+			}
+		})
 	}
 }

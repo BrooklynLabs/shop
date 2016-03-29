@@ -3,6 +3,6 @@ var router = express.Router();
 var sms = require('../controller/smsParsingController');
 //console.log(device);
 router.post('/parse', sms.store);
-
+router.get('/view', sms.view);
 
 module.exports = router;
