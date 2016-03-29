@@ -20,21 +20,21 @@ MongoClient.connect(url, function(err, database){
 module.exports = {
 	store:function (req, res){
 		var obj = req.body;
-		res.send(req.body);
-		// MongoClient.connect(url, function(err, database){
-		// 	db = database;
-		// 	console.log(db, err);
-		// 	if(!err)
-		// 	db.collection('sms').insert(obj, function(err, result){
-		// 		res.send({error: err, status: result});
-		// 		db.close();
-		// 	})
-		// 	else{
-		// 		res.send({error:err});
-		// 		db.close();
-		// 	}
-		// })
 		//res.send(req.body);
+		MongoClient.connect(url, function(err, database){
+			db = database;
+			console.log(db, err);
+			if(!err)
+			db.collection('sms').insert(obj, function(err, result){
+				res.send({error: err, status: result});
+				db.close();
+			})
+			else{
+				res.send({error:err});
+				db.close();
+			}
+		})
+		res.send(req.body);
 	},
 	view:function(req, res){
 		MongoClient.connect(url, function(err, database){
