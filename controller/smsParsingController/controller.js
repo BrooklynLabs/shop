@@ -40,7 +40,7 @@ module.exports = {
 		MongoClient.connect(url, function(err, database){
 			db= database;
 			if(!err){
-				db.collection('sms').find({}, function(err, result){
+				db.collection('sms').find({}).toArray(function(err, result){
 					res.send({error:err, result:result});
 					db.close();
 				})
