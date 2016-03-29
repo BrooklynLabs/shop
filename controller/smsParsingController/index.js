@@ -1,5 +1,5 @@
 var controller = require('./controller.js');
-//console.log(controller);
+console.log(controller);
 
 module.exports = {
 	store 	: controller.store
