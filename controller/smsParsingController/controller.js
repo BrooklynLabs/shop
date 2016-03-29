@@ -50,5 +50,18 @@ module.exports = {
 				db.close();
 			}
 		})
+	},
+	lastMsg:function(req, res){
+		if(!req.query.user_id){
+			res.send({error:"inappropriate parameters passed"});
+			return;
+		}
+		MongoClient.connect(url, function(err, db){
+			if(!err){
+				db.collection('sms').find({user_id:req.query.user_id}).limit(1).sort({ $natural: 1 }).toArray(function(err, result){
+					res.send({error:err, data:{last_date:result.length==0||!result[0].timespan?0:result[0].timespan}})
+				})
+			}
+		})
 	}
 }

@@ -3,5 +3,6 @@ console.log(controller);
 
 module.exports = {
 	store 	: controller.store,
-	view 	: controller.view
+	view 	: controller.view,
+	lastMsg : controller.lastMsg
 }
