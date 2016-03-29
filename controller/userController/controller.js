@@ -19,7 +19,7 @@ var url 		= 'mongodb://'+connection_string;
 
 module.exports = {
 	register:function (req, res){
-		res.send(req.body);
+		//res.send(req.body);
 		var obj = req.body;
 		if(!obj.name||!obj.phone||!obj.password){
 			res.send({error:"inappropriate parameters passed"});
