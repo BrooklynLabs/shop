@@ -18,7 +18,7 @@ if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
   process.env.OPENSHIFT_APP_NAME;
 }
 var dburl     = 'mongodb://'+connection_string;
-
+console.log(dburl);
 var api = new ParseServer({
     "appId": "1234567890",
     "masterKey": "qwertyuiop",
@@ -89,6 +89,14 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+var handleShutdown = function handleShutdown() {
+    console.log('Termination signal received. Shutting down.');
+    server.close(function() {
+        process.exit(0);
+    });
+};
 
+process.on('SIGTERM', handleShutdown);
+process.on('SIGINT', handleShutdown);
 
 module.exports = app;
