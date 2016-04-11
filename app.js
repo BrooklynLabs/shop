@@ -23,7 +23,6 @@ var api = new ParseServer({
     "appId": "1234567890",
     "masterKey": "qwertyuiop",
     "appName": "shopylytics",
-    "cloud": "./cloud/main",
     "databaseURI": dburl,
     "serverURL": "http://shopylytics-c0dezer0.rhcloud.com"
 });
@@ -89,14 +88,6 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-var handleShutdown = function handleShutdown() {
-    console.log('Termination signal received. Shutting down.');
-    server.close(function() {
-        process.exit(0);
-    });
-};
 
-process.on('SIGTERM', handleShutdown);
-process.on('SIGINT', handleShutdown);
 
 module.exports = app;
