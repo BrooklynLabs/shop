@@ -11,7 +11,7 @@ router.use('/api/v1/sms', sms);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Manish' });
 });
 
 module.exports = router;
