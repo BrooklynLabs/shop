@@ -25,12 +25,6 @@ var api = new ParseServer({
     "appName": "shopylytics",
     "cloud": "./cloud/main",
     "databaseURI": dburl,
-    "push": {
-        "android": {
-            "senderId": "newsenderid",
-            "apiKey": "newapikey"
-        }
-    },
     "serverURL": "http://shopylytics-c0dezer0.rhcloud.com"
 });
 
