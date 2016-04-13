@@ -1,9 +1,12 @@
-The OpenShift `nodejs` cartridge documentation can be found at:
-
-http://openshift.github.io/documentation/oo_cartridge_guide.html#nodejs
+# Shopylytics
 
 To Start the project 
 
-npm install
+$npm install
 
-npm start
+$npm start
+
+#Server Details
+
+Base url : http://shopylytics-c0dezer0.rhcloud.com/
+
