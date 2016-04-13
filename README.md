@@ -1,10 +1,10 @@
 # Shopylytics
 
-To Start the project 
+Project Setup 
 
-`<code>` $npm install
+ Install Dependencies : `$npm install`
 
-`<code>` $npm start
+ Start Server : `$npm start`
 
 #Server Details
 
