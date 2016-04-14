@@ -1,5 +1,5 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var AddProduct = require('./components/AddProduct.jsx');
+var ProductList = require('./components/ProductList.jsx');
 
-ReactDOM.render(<AddProduct/>, document.getElementById('container'));
+ReactDOM.render(<ProductList/>, document.getElementById('container'));

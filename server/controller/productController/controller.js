@@ -28,7 +28,7 @@ module.exports = {
 			db = database;
 			console.log(db, err);
 			if(!err)
-			db.collection('product').insert(req.data, function(err, result){
+			db.collection('product').insert(req.body, function(err, result){
 				res.send({error: err, status: result});
 				db.close();
 			})

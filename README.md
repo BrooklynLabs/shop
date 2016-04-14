@@ -15,7 +15,7 @@ Base url : http://shopylytics-c0dezer0.rhcloud.com/
 1. Insert Product
 2. List Product
 3. Edit product
-4. register User
+4. register User(login/logout)
 5. Register Vendor
 6. Register product with vendor
 7. Show Products to customer 
