@@ -9,6 +9,7 @@ var product    = require('./products.routes.js');
 router.use('/v1/user', user);
 router.use('/v1/sms', sms);
 router.use('/v1/product', product);
+router.get('/health', (req, res)=>{res.send("Working");});
 //router.use('/api/v1/analytics', analytics);
 
 /* GET home page. */
