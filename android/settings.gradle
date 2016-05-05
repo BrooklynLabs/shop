@@ -1,0 +1,6 @@
+rootProject.name = 'shopylyticsV1'
+
+include ':app'
+
+include ':react-native-android-sms'
+project(':react-native-android-sms').projectDir = new File(settingsDir, '../node_modules/react-native-android-sms')

@@ -4,19 +4,21 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 var multer = require('multer');
 var upload = multer({ dest: 'public/uploads/' });
-
+var MongoClient = require('mongodb').MongoClient;
 var api = require('./server/routes');
-
+var config = require('./config.server.js');
 var app = express();
-
+console.log(config);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded());
@@ -25,7 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // CORS
-app.use('*', function(req, res, next) {
+app.use('*', (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -33,10 +35,92 @@ app.use('*', function(req, res, next) {
     next();
 });
 
+// passport settings
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+passport.deserializeUser(function(obj, done) {
+    done(null, obj);
+});
+
+passport.use(new LocalStrategy(
+    function(username, password, done) {
+        MongoClient.connect(config.db.url, (err, db) => {
+            db.collection('user').find({ username: username }).toArray((err, user) => {
+                db.close();
+                if (err) {
+                    return done(err);
+                }
+                if (!user) {
+                    return done(null, false, { message: 'Incorrect username.' });
+                }
+                if (user[0].password != password) {
+                    return done(null, false, { message: 'Incorrect password.' });
+                }
+                return done(null, user[0]);
+            })
+        })
+    }
+));
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/login', (req, res) => {
+    res.render('login', { message: "" });
+})
+app.post('/login', (req, res) => {
+    console.log(req.body);
+
+    passport.authenticate('local', (err, user, info) => {
+        if (err || !user) {
+            res.redirect('/login?message=failed');
+        }
+        console.log(user);
+        req.logIn(user, (err) => {
+            if (err) {
+                return res.redirect('/login?message=invalid');
+            }
+            return res.redirect('/');
+        });
+    })(req, res);
+
+
+});
+app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/login');
+})
+app.get('/signup', (req, res) => {
+    res.render('signup', { message: "" });
+})
+app.post('/signup', (req, res) => {
+    if (!req.body.username || !req.body.password || !req.body.role || req.body.role != 'shopkeeper') {
+        res.render('signup', { message: "Incomplete form" });
+    } else {
+        MongoClient.connect(config.db.url, (err, db) => {
+            db.collection('user').insert(req.body, (err) => {
+                if (!err) {
+                    res.redirect('/login');
+                } else {
+                    res.render('signup', { message: err });
+                }
+            })
+        })
+    }
+})
 app.use('/api', api);
 
+app.use('/', function(req, res, next) {
+    console.log(req.user);
+    if (req.isAuthenticated()) {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+}, express.static(path.join(__dirname, 'public')));
+
 app.use('/*', function(req, res, next) {
-    res.sendFile(__dirname+"/public/index.html");
+    res.redirect('/');
 })
 
 // catch 404 and forward to error handler

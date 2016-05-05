@@ -1,5 +1,8 @@
 node_modules
-.idea
+*.idea*
+*.gradle*
 .DS_Store
 *.ignore.*
 logs
+android/.idea
+android/.gradle

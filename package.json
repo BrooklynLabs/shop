@@ -1,10 +1,11 @@
 {
-  "name": "server",
+  "name": "Shopylytics",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "watch": "watchify client/src/main.jsx -v -t [ babelify --presets [ react ] ] -o public/js/main.js",
-    "start": "watchify client/src/main.jsx -v -t [ babelify --presets [ react ] ] -o public/js/main.js & nodemon bin/www"
+    "start": "browserify client/src/main.jsx -v -t [ babelify --presets [ react ] ] -o public/js/main.js & nodemon bin/www",
+    "dev": "watchify client/src/main.jsx -v -t [ babelify --presets [ react ] ] -o public/js/main.js & nodemon bin/www",
+    "react": "node node_modules/react-native/local-cli/cli.js start"
   },
   "main": "bin/www",
   "dependencies": {
@@ -16,12 +17,16 @@
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "jquery": "^2.2.3",
-    "mongodb": "^2.1.12",
+    "mongodb": "^2.1.18",
     "morgan": "~1.6.1",
     "multer": "^1.1.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "randomstring": "^1.1.4",
-    "react": "^15.0.1",
+    "react": "^15.0.2",
     "react-dom": "^15.0.1",
+    "react-native": "^0.24.1",
+    "react-native-android-sms": "0.0.1",
     "serve-favicon": "~2.3.0",
     "watchify": "^3.7.0"
   },

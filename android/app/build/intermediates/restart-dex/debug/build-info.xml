@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instant-run
+    abi="x86_64"
+    api-level="23"
+    density="xxhdpi"
+    format="7"
+    timestamp="305597572016436" >
+
+    <task
+        name="javac"
+        duration="4782" />
+    <task
+        name="instant-run-dex"
+        duration="0" />
+    <task
+        name="instant-run-transform"
+        duration="1430" />
+    <task
+        name="verifier"
+        duration="233" />
+
+    <artifact
+        location="/Users/manishkumar/Documents/shopylytics/shopylyticsV1/android/app/build/outputs/apk/app-debug.apk"
+        type="MAIN" />
+
+    <build timestamp="305597572016436" >
+        <artifact
+            location="/Users/manishkumar/Documents/shopylytics/shopylyticsV1/android/app/build/outputs/apk/app-debug.apk"
+            type="MAIN" />
+    </build>
+
+</instant-run>
