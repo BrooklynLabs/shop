@@ -12,5 +12,6 @@ var url = 'mongodb://' + connection_string;
 module.exports = {
 	db:{
 		url:url
-	}
+	},
+	session_secret:'swagmeradesihai'
 }

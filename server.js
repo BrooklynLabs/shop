@@ -1,4 +1,5 @@
 var express = require('express');
+var app = express();
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -11,8 +12,8 @@ var upload = multer({ dest: 'public/uploads/' });
 var MongoClient = require('mongodb').MongoClient;
 var api = require('./server/routes');
 var config = require('./config.server.js');
-var app = express();
-console.log(config);
+var session = require('express-session');
+var randomstring = require("randomstring");
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -23,8 +24,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+    saveUninitialized: true,
+    resave: true,
+    secret: config.session_secret
+}));
+// app.use(cookieParser());
+// app.use(express.static(path.join(__dirname, 'public')));
 
 // CORS
 app.use('*', (req, res, next) => {
@@ -51,7 +57,7 @@ passport.use(new LocalStrategy(
                 if (err) {
                     return done(err);
                 }
-                if (!user) {
+                if (!user[0]) {
                     return done(null, false, { message: 'Incorrect username.' });
                 }
                 if (user[0].password != password) {
@@ -74,13 +80,14 @@ app.post('/login', (req, res) => {
     passport.authenticate('local', (err, user, info) => {
         if (err || !user) {
             res.redirect('/login?message=failed');
+            return;
         }
-        console.log(user);
+        delete user.password;
         req.logIn(user, (err) => {
             if (err) {
                 return res.redirect('/login?message=invalid');
-            }
-            return res.redirect('/');
+            } else
+                return res.redirect('/');
         });
     })(req, res);
 
@@ -94,11 +101,13 @@ app.get('/signup', (req, res) => {
     res.render('signup', { message: "" });
 })
 app.post('/signup', (req, res) => {
-    if (!req.body.username || !req.body.password || !req.body.role || req.body.role != 'shopkeeper') {
+    if (!req.body.username || !req.body.password || !req.body.role) { //|| req.body.role != 'user'
         res.render('signup', { message: "Incomplete form" });
     } else {
         MongoClient.connect(config.db.url, (err, db) => {
-            db.collection('user').insert(req.body, (err) => {
+            var user = req.body;
+            user.user_id = randomstring.generate(10);
+            db.collection('user').insert(user, (err) => {
                 if (!err) {
                     res.redirect('/login');
                 } else {
@@ -111,7 +120,7 @@ app.post('/signup', (req, res) => {
 app.use('/api', api);
 
 app.use('/', function(req, res, next) {
-    console.log(req.user);
+
     if (req.isAuthenticated()) {
         next();
     } else {
