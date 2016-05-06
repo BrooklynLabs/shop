@@ -8,7 +8,7 @@ Project Setup
 
 #Server Details
 
-Base url : http://shopylytics-c0dezer0.rhcloud.com/
+Base url : https://shopylytics.herokuapp.com/
 
 #Todo
 
