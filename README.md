@@ -4,9 +4,9 @@ Project Setup
 
  Install Dependencies : `$npm install`
 
- Start Server (Production) : `$npm start`
-
  Start Server (Development): '$npm run dev'
+
+ Start Server (Production) : `$npm start`
 
 #Server Details
 
