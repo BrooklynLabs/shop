@@ -25,8 +25,8 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || "8000";
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || 'localhost'
+var server_port = process.env.PORT || "8000";
+var server_ip_address = process.env.IP || 'localhost'
  
 server.listen(server_port, server_ip_address, function () {
   console.log( "Listening on " + server_ip_address + ", server_port " + server_port )
