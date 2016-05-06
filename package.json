@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "browserify client/src/main.jsx -v -t [ babelify --presets [ react ] ] -o public/js/main.js &NODE_ENV=production node bin/www ",
+    "start": "NODE_ENV=production node bin/www ",
     "dev": "watchify client/src/main.jsx -v -t [ babelify --presets [ react ] ] -o public/js/main.js &NODE_ENV=development nodemon bin/www",
-    "react": "node node_modules/react-native/local-cli/cli.js start"
+    "react": "node node_modules/react-native/local-cli/cli.js start",
+    "build": "browserify client/src/main.jsx -v -t [ babelify --presets [ react ] ] -o public/js/main.js"
   },
   "main": "bin/www",
   "dependencies": {
