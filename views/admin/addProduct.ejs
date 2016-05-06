@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Admin</title>
+
+	<%- include('../partials/header')%>
+
+</head>
+<body>
+	<section id="container">
+	<%- include('../partials/topbar')%>
+	<%- include('../partials/sidebar')%>
+	<section id="main-content">
+	<br /><br>
+		<h2>Add New Product</h2>
+		<form id="productform" action="/api/v1/product" method="POST">
+			<label>Name</label>
+			<input type="Text" name="prod_name" placeholder="Name"></input>
+			<label>Category</label>
+			<select name="prod_category" form="productform">
+				<option value="electronics">Electronics</option>
+				<option value="home">Home</option>
+			</select>
+			<textarea form="productform" name="description">Product Description..</textarea>
+			<input type="file" name="images" multiple></input>
+			<input type="submit"></input>
+		</form>
+	</section>
+	</section>
+	
+	<%- include('../partials/footer')%>
+</body>
+</html>

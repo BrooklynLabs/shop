@@ -18,6 +18,7 @@ var randomstring = require("randomstring");
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -117,16 +118,22 @@ app.post('/signup', (req, res) => {
         })
     }
 })
+
+
 app.use('/api', api);
 
-app.use('/', function(req, res, next) {
+app.use(function(req, res, next) {
 
     if (req.isAuthenticated()) {
         next();
     } else {
         res.redirect('/login');
     }
-}, express.static(path.join(__dirname, 'public')));
+});
+
+require('./server/main.controller')(app, config)
+
+app.use('/', express.static(__dirname+"/public"));
 
 app.use('/*', function(req, res, next) {
     res.redirect('/');
