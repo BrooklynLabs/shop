@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "browserify client/src/main.jsx -v -t [ babelify --presets [ react ] ] -o public/js/main.js & nodemon bin/www",
+    "start": "browserify client/src/main.jsx -v -t [ babelify --presets [ react ] ] -o public/js/main.js & node bin/www",
     "dev": "watchify client/src/main.jsx -v -t [ babelify --presets [ react ] ] -o public/js/main.js & nodemon bin/www",
     "react": "node node_modules/react-native/local-cli/cli.js start"
   },
