@@ -4,13 +4,17 @@ Project Setup
 
  Install Dependencies : `$npm install`
 
- Start Server (Development): '$npm run dev'
+ Start Server (Development): `$npm run dev`
 
  Start Server (Production) : `$npm start`
 
 #Server Details
 
 Base url : https://shopylytics.herokuapp.com/
+
+Admin Login :
+	ID: admin
+	Password: qwerty
 
 #Todo
 

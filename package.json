@@ -28,6 +28,7 @@
     "react-dom": "^15.0.1",
     "react-native": "^0.24.1",
     "react-native-android-sms": "0.0.1",
+    "react-router": "^2.4.0",
     "serve-favicon": "~2.3.0",
     "watchify": "^3.7.0"
   },

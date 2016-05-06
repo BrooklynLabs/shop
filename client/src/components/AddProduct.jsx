@@ -1,10 +1,11 @@
 var React = require('react');
+var Link = require('react-router').Link;
 // add onclick listener
 var AddProduct = React.createClass({
   render: function() {
     return (
       <div>
-        Add product list	
+        <Link to={'/product'}>Products</Link>
 
       </div>
     )
