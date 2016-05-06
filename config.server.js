@@ -7,10 +7,11 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
         process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
         process.env.OPENSHIFT_APP_NAME;
 }
-if(process.env=='production')
-	connection_string ='mongodb://admin:qwerty@ds015902.mlab.com:15902/shopylytics'
+if(process.env.NODE_ENV=='production')
+	connection_string ='admin:qwerty@ds015902.mlab.com:15902/shopylytics'
 var url = 'mongodb://' + connection_string;
 
+console.log("DB URL: "+url, "Env : "+(process.env.NODE_ENV));
 module.exports = {
 	db:{
 		url:url
