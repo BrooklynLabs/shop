@@ -50,7 +50,7 @@
 </head>
 <body>
 	<div class="container">
-	<% if (message && message.length){%>
+	<% if (message.length){%>
 	<p><%= message %></p>
 	<%}%>
 	<form method="POST" action="/signup" autocomplete="off" class="form-signin">
@@ -60,7 +60,8 @@
             <input class="form-control" type="text" name="username" id="username" placeholder="Username" require autofocus></input>
             <label for="password" class="sr-only">Password</label>
             <input type="password" name="password" id="password" class="form-control" placeholder="Password" required></input>
-            <input type="hidden" name="role" value="ADMIN"></input>
+            <input type="radio" name="role" value="USER" checked> User</input>
+            <input type="radio" name="role" value="ADMIN"> Admin</input>
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Register </button>
 	</form>
 </body>
