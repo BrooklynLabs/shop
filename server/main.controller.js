@@ -15,11 +15,18 @@ module.exports = function(app, config, MongoClient, upload) {
                 var obj = {
                     user_id: user[0].user_id,
                     email: user[0].email || '',
-                    photo: user[0].photo || '',
+                    images: user[0].images || '',
                     name: user[0].name || '',
                     age: user[0].age || '',
                     gender: user[0].gender || '',
-                    role: user[0].role || ''
+                    role: user[0].role || '',
+                    phone:user[0].phone ||'',
+                    shop_name: user[0].shop_name||'',
+                    shop_about: user[0].shop_about||'',
+                    shop_address: user[0].shop_address||'',
+                    gender:user[0].gender,
+                    lat:user[0].lat,
+                    lng:user[0].lng
                 }
                 for(key in user[0]){
                     obj[key]= user[0][key];
