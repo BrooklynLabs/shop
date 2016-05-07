@@ -1,7 +1,7 @@
 // require('es6-promise').polyfill();
 // require('isomorphic-fetch');
 var fetch = require('node-fetch');
-module.exports = function(app, config, MongoClient, upload) {
+module.exports = function(app, config, MongoClient) {
     app.get('/', (req, res) => {
         res.render('dashboard', req.user);
     })
@@ -38,7 +38,7 @@ module.exports = function(app, config, MongoClient, upload) {
         })
 
     })
-    app.post('/profile', upload.array('images'), (req, res) => {
+    app.post('/profile', (req, res) => {
         req.body.updated_at = (new Date()).getTime();
         req.body.location = [req.body.lng, req.body.lat];
         MongoClient.connect(config.db.url, (err, db) => {

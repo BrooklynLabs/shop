@@ -135,7 +135,7 @@ app.use(function(req, res, next) {
 });
 
 
-require('./server/main.controller')(app, config, MongoClient, upload);
+require('./server/main.controller')(app, config, MongoClient);
 
 
 app.use('/', express.static(__dirname + "/public"));
