@@ -21,6 +21,10 @@ module.exports = function(app, config, MongoClient, upload) {
                     gender: user[0].gender || '',
                     role: user[0].role || ''
                 }
+                for(key in user[0]){
+                    obj[key]= user[0][key];
+                }
+                delete obj.password;
 
                 res.render('profile', obj);
             })
@@ -29,8 +33,9 @@ module.exports = function(app, config, MongoClient, upload) {
     })
     app.post('/profile', upload.array('images'), (req, res) => {
         req.body.updated_at = (new Date()).getTime();
+        req.body.location = [req.body.lng, req.body.lat];
         MongoClient.connect(config.db.url, (err, db) => {
-            db.collection('user').update({ user_id: req.user.user_id }, req.body, err => {
+            db.collection('user').update({ user_id: req.user.user_id }, {$set:req.body}, err => {
                 res.redirect('/');
             })
         })
@@ -69,8 +74,21 @@ module.exports = function(app, config, MongoClient, upload) {
     });
 
     app.get('/product/edit/:prod_id', (req, res) => {
-        if (req.user.role == 'ADMIN')
-            res.render('admin/editProduct', req.user);
+        console.log(req.params.prod_id);
+        if (req.user.role == 'ADMIN'){
+            var obj = req.user;
+            MongoClient.connect(config.db.url, (err, db)=>{
+                db.collection('product').find({prod_id:req.params.prod_id}).toArray((err, product)=>{
+                    console.log(product);
+                    for(key in product[0]){
+                        obj[key] = product[0][key];
+                    }
+                    // console.log(obj);
+                    res.render('admin/editProduct', obj);
+                })
+            })
+            // res.render('admin/editProduct', req.user);
+        }
         else
             res.render('seller/editProduct', req.user);
     })

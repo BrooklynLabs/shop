@@ -16,6 +16,8 @@
 	<br /><br> <br>
 		<h2>Add New Product</h2>
 		<form id="productform" action="/api/v1/product" method="POST" class="form-horizontal" role="form">
+			<input type="hidden" name="shop_id" value="<%= user_id %>"></input>
+			<input type="hidden" name="role" value="<%= role %>"></input>
 			<div class="form-group row">
 				<label for="prod_name" class="col-sm-offset-1 col-sm-2 form-control-label"> Name</label>
 				<div class="col-sm-6">

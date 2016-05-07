@@ -6,6 +6,7 @@ var multer = require('multer');
 var upload = multer({ dest: '../../public/uploads/' });
 
 router.post('/', upload.single('images'), product.newProduct);
+router.post('/edit', upload.single('images'), product.editProduct);
 router.get('/', product.listProduct);
 
 

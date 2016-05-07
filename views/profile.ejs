@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title><%= role %>:Profile</title>
+	<meta charset="UTF-8" />
+	<title>Admin</title>
 
 	<%- include('partials/header')%>
 
@@ -13,13 +13,78 @@
 	<%- include('partials/topbar')%>
 	<%- include('partials/sidebar')%>
 	<section id="main-content">
-	<br /><br>
-		<form method="POST" action="/profile">
+	<br /><br> <br>
+		<h2>Profile</h2>
+		<form id="userprofileform" method="POST" action="/profile" class="form-horizontal" role="form">
 			<input type="hidden" name="user_id" value="<%= user_id %>"></input>
-			<input type="email" name="email" value="<%= email %>"></input>
+			<input type="hidden" name="email" value="<%= email %>"></input>
+			<input type="hidden" name="role" value="<%= role %>"></input>
+		
+			<div class="form-group row">
+				<label for="name" class="col-sm-offset-1 col-sm-2 form-control-label">Your Name</label>
+				<div class="col-sm-6">
+					<input id="name" class="form-control" type="Text" name="name" placeholder="Name" value="<%= name %>" required></input>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="phone" class="col-sm-offset-1 col-sm-2 form-control-label">Your Contact Number</label>
+				<div class="col-sm-6">
+					<input id="tel" class="form-control" type="Text" name="phone" placeholder="Phone Number" value="<%= phone %>"required></input>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="gender" class="col-sm-offset-1 col-sm-2 form-control-label">Gender</label>
+				<div class="col-sm-6">
+					<select id="gender" class="form-control" name="gender" form="userprofileform" required>
+						<option value="male">Male</option>
+						<option value="female">Female</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="shop_name" class="col-sm-offset-1 col-sm-2 form-control-label">Shop Name</label>
+				<div class="col-sm-6">
+					<input id="shop_name" class="form-control" type="Text" name="shop_name" placeholder="Shop Name" value="<%= shop_name %>"required></input>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="shop_about" class="col-sm-offset-1 col-sm-2 form-control-label">About Shop</label>
+				<div class="col-sm-6">
+					<textarea class="form-control" id="shop_about" rows="5" form="userprofileform" name="shop_about" placeholder="Tell something about your shop" required><%= shop_about %></textarea>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="images" class="col-sm-offset-1 col-sm-2 form-control-label">Shop images</label>
+				<div class="col-sm-6">
+					<input id="images" class="form-control" type="file" name="images" multiple></input>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="shop_address" class="col-sm-offset-1 col-sm-2 form-control-label">Shop Address</label>
+				<div class="col-sm-6">
+					<textarea class="form-control" id="shop_address" rows="5" form="userprofileform" name="shop_address" placeholder="Address of your shop" required><%= shop_address %></textarea>
+				</div>
+			</div>
+			<input type="hidden" name="lat" id="location_lat" value="<%= lat%>"></input>
+			<input type="hidden" name="lng" id="location_lng" value="<%= lng%>"></input>
+			<div class="form-group row">
+				<div class="col-sm-offset-3 col-sm-6">
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
+			</div>
 		</form>
 	</section>
 	</section>
+	
 	<%- include('partials/footer')%>
+	<script type="text/javascript">
+		navigator.geolocation.getCurrentPosition(function(position) {
+			console.log(position);
+			$('#location_lng').val(position.coords.longitude);
+			$('#location_lat').val(position.coords.latitude);
+		});
+	</script>
 </body>
 </html>
