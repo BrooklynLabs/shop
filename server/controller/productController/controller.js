@@ -6,7 +6,6 @@ var config = require('../../../config.server.js');
 
 module.exports = {
     newProduct: function(req, res) {
-    	console.log(req.file);
     	if(Object.keys(req.body).length==0){
     		res.send({error:'Blank form submitted!'});
     		return;
@@ -14,11 +13,18 @@ module.exports = {
     	else
     	MongoClient.connect(config.db.url, function(err, database){
 			db = database;
-			// console.log(db, err);
+			console.log(req.body);
+			console.log(req.file);
+			req.body.prod_id = randomstring.generate();
+			req.body.prod_mrp = Number(req.body.prod_mrp||'0');
 			if(!err)
 			db.collection('product').insert(req.body, function(err, result){
-				res.send({error: err, status: result});
 				db.close();
+				if(!err){
+					res.redirect('back');
+				}
+				// res.send({error: err, status: result});
+				
 			})
 			else{
 				res.send({error:err});

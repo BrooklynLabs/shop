@@ -15,7 +15,6 @@ module.exports = function(app, config, MongoClient, upload) {
                 var obj = {
                     user_id: user[0].user_id,
                     email: user[0].email || '',
-                    // username: user[0].username||'',
                     photo: user[0].photo || '',
                     name: user[0].name || '',
                     age: user[0].age || '',
@@ -69,7 +68,7 @@ module.exports = function(app, config, MongoClient, upload) {
             res.render('seller/addProduct', req.user);
     });
 
-    app.get('/product/edit', (req, res) => {
+    app.get('/product/edit/:prod_id', (req, res) => {
         if (req.user.role == 'ADMIN')
             res.render('admin/editProduct', req.user);
         else

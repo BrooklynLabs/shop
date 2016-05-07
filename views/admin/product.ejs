@@ -11,9 +11,9 @@
 	<section id="container">
 	<%- include('../partials/topbar')%>
 	<%- include('../partials/sidebar')%>
-	<br><br>
+	<br><br> <br>
 	<section id="main-content">
-	<h2>List Product</h2>
+	<h2>Product List</h2>
 	<div class="row">
 		
 		<% for (var i=0; i<products.length ; i++){ %>
@@ -22,7 +22,7 @@
 				<h4 class="card-title"><%= products[i].prod_name%></h4>
 				<h6 class="card-subtitle text-muted"><%= products[i].prod_category %></h6>
 				<p><%= products[i].description %></p>
-				<a href="/product/edit/" class="btn btn-primary">Edit</a>
+				<a href="/product/edit/<%= products[i].prod_id%>" class="btn btn-primary">Edit</a>
 			</div>
 			</div>
 		<%}%>
