@@ -6,6 +6,7 @@ var config = require('../../../config.server.js');
 
 module.exports = {
     newProduct: function(req, res) {
+    	console.log(req.file);
     	if(Object.keys(req.body).length==0){
     		res.send({error:'Blank form submitted!'});
     		return;

@@ -16,5 +16,6 @@ module.exports = {
 	db:{
 		url:url
 	},
-	session_secret:'swagmeradesihai'
+	session_secret:'swagmeradesihai',
+	host: process.env.NODE_ENV=='production'?'https://shopylytics.herokuapp.com':'http://localhost:8000'
 }

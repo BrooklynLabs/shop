@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><%= role %>:Profile</title>
+
+	<%- include('partials/header')%>
+
+</head>
+<body>
+	<section id="container">
+	<%- include('partials/topbar')%>
+	<%- include('partials/sidebar')%>
+	<section id="main-content">
+	<br /><br>
+		<form method="POST" action="/profile">
+			<input type="hidden" name="user_id" value="<%= user_id %>"></input>
+			<input type="email" name="email" value="<%= email %>"></input>
+		</form>
+	</section>
+	</section>
+	<%- include('partials/footer')%>
+</body>
+</html>

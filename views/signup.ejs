@@ -56,12 +56,12 @@
 	<form method="POST" action="/signup" autocomplete="off" class="form-signin">
 		<h2 class="form-signin-heading">Sign Up</h2>
 		  <label for="email" class="sr-only">Email</label>
-      <input class="form-control" type="text" name="email" id="email" placeholder="Email" require autofocus></input>
-		  <label for="username" class="sr-only">Username</label>
-      <input class="form-control" type="text" name="username" id="username" placeholder="Username" require ></input>
+      <input class="form-control" type="email" name="email" id="email" placeholder="Email" require autofocus></input>
+		  <label for="name" class="sr-only">Name</label>
+      <input class="form-control" type="text" name="name" id="name" placeholder="Name" require ></input>
       <label for="password" class="sr-only">Password</label>
       <input type="password" name="password" id="password" class="form-control" placeholder="Password" required></input>
-      <input type="radio" name="role" value="USER" checked> User</input>
+      <input type="radio" name="role" value="SELLER" checked> Seller</input>
       <input type="radio" name="role" value="ADMIN"> Admin</input>
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Register </button>
 	</form>

@@ -53,7 +53,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new LocalStrategy(
     function(username, password, done) {
         MongoClient.connect(config.db.url, (err, db) => {
-            db.collection('user').find({ username: username }).toArray((err, user) => {
+            db.collection('user').find({ email: username }).toArray((err, user) => {
                 db.close();
                 if (err) {
                     return done(err);
@@ -80,7 +80,7 @@ app.post('/login', (req, res) => {
 
     passport.authenticate('local', (err, user, info) => {
         if (err || !user) {
-            res.redirect('/login?message=failed');
+            res.redirect('/login?message='+info.message);
             return;
         }
         delete user.password;
@@ -102,7 +102,7 @@ app.get('/signup', (req, res) => {
     res.render('signup', { message: "" });
 })
 app.post('/signup', (req, res) => {
-    if (!req.body.username || !req.body.password || !req.body.role) { //|| req.body.role != 'user'
+    if (!req.body.name || !req.body.password || !req.body.role || (req.body.role !='SELLER'&& req.body.role!='ADMIN') ) { //|| req.body.role != 'user'
         res.render('signup', { message: "Incomplete form" });
     } else {
         MongoClient.connect(config.db.url, (err, db) => {
@@ -110,7 +110,10 @@ app.post('/signup', (req, res) => {
             user.user_id = randomstring.generate(10);
             db.collection('user').insert(user, (err) => {
                 if (!err) {
-                    res.redirect('/login');
+                    req.logIn(user, err=>{
+                        res.redirect('/profile');
+                    })
+                    
                 } else {
                     res.render('signup', { message: err });
                 }
@@ -131,9 +134,11 @@ app.use(function(req, res, next) {
     }
 });
 
-require('./server/main.controller')(app, config)
 
-app.use('/', express.static(__dirname+"/public"));
+require('./server/main.controller')(app, config, MongoClient, upload);
+
+
+app.use('/', express.static(__dirname + "/public"));
 
 app.use('/*', function(req, res, next) {
     res.redirect('/');
