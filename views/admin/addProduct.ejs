@@ -13,7 +13,8 @@
 	<%- include('../partials/topbar')%>
 	<%- include('../partials/sidebar')%>
 	<section id="main-content">
-	<br /><br> <br>
+	<!-- <br /><br> <br> -->
+	<section class="wrapper">
 		<h2>Add New Product</h2>
 		<form id="productform" action="/api/v1/product" method="POST" class="form-horizontal" enctype='multipart/form-data' role="form">
 			<input type="hidden" name="shop_id" value="<%= user_id %>"></input>
@@ -61,6 +62,7 @@
 				</div>
 			</div>
 		</form>
+	</section>
 	</section>
 	</section>
 	
