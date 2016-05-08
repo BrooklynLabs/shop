@@ -11,7 +11,7 @@ module.exports = function(app, config, MongoClient) {
             db.collection('user').find({ user_id: req.user.user_id }).toArray((err, user) => {
                 // var obj = user[0];
                 db.close();
-                console.log(user[0]);
+                // console.log(user[0]);
                 var obj = {
                     user_id: user[0].user_id,
                     email: user[0].email || '',
