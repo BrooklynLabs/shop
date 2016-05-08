@@ -7,8 +7,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-// var multer = require('multer');
-// var upload = multer({ dest: 'public/uploads/' });
+var multer = require('multer');
+var upload = multer({ dest: 'public/uploads/' });
 var MongoClient = require('mongodb').MongoClient;
 var api = require('./server/routes');
 var config = require('./config.server.js');
@@ -135,7 +135,7 @@ app.use(function(req, res, next) {
 });
 
 
-require('./server/main.controller')(app, config, MongoClient);
+require('./server/main.controller')(app, config, MongoClient, upload);
 
 
 app.use('/', express.static(__dirname + "/public"));

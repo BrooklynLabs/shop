@@ -12,11 +12,12 @@ module.exports = {
         } else
             MongoClient.connect(config.db.url, function(err, database) {
                 db = database;
-                console.log(req.body);
+                // console.log(req.body);
                 console.log(req.file);
                 // req.body.shop_id = req.user.user_id;
                 req.body.prod_id = randomstring.generate();
                 req.body.prod_mrp = Number(req.body.prod_mrp || '0');
+                req.body.images = req.headers.origin + req.file.path.replace('public','');
                 if (!err)
                     db.collection('product').insert(req.body, function(err, result) {
                         db.close();
@@ -46,6 +47,7 @@ module.exports = {
                 console.log(req.body);
                 console.log(req.file);
                 req.body.prod_mrp = Number(req.body.prod_mrp || '0');
+                req.body.images = req.headers.origin + req.file.path.replace('public','');
                 if (!err)
                     db.collection('product').update({ prod_id: req.body.prod_id }, req.body, function(err, result) {
                         db.close();

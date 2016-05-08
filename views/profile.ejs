@@ -15,7 +15,7 @@
 	<section id="main-content">
 	<br /><br> <br>
 		<h2>Profile</h2>
-		<form id="userprofileform" method="POST" action="/profile" class="form-horizontal" role="form">
+		<form id="userprofileform" method="POST" action="/profile" class="form-horizontal" enctype='multipart/form-data' role="form">
 			<input type="hidden" name="user_id" value="<%= user_id %>"></input>
 			<input type="hidden" name="email" value="<%= email %>"></input>
 			<input type="hidden" name="role" value="<%= role %>"></input>

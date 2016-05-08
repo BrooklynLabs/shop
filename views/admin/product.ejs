@@ -18,11 +18,14 @@
 		
 		<% for (var i=0; i<products.length ; i++){ %>
 			<div class="col-sm-4">
-			<div class="card card-block">
+			<div class="card">
+			<img class="card-img-top" src="<%= products[i].images%>" width="99%">
+			<div class="card-block">
 				<h4 class="card-title"><%= products[i].prod_name%></h4>
 				<h6 class="card-subtitle text-muted"><%= products[i].prod_category %></h6>
 				<p><%= products[i].description %></p>
 				<a href="/product/edit/<%= products[i].prod_id%>" class="btn btn-primary">Edit</a>
+			</div>
 			</div>
 			</div>
 		<%}%>

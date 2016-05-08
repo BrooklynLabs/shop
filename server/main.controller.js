@@ -1,8 +1,9 @@
-// require('es6-promise').polyfill();
-// require('isomorphic-fetch');
+
 var fetch = require('node-fetch');
-module.exports = function(app, config, MongoClient) {
+module.exports = function(app, config, MongoClient, upload) {
+
     app.get('/', (req, res) => {
+        console.log(req.user);
         res.render('dashboard', req.user);
     })
 
@@ -38,9 +39,11 @@ module.exports = function(app, config, MongoClient) {
         })
 
     })
-    app.post('/profile', (req, res) => {
+    app.post('/profile', upload.single('images'),(req, res) => {
+        // console.log(req.file.path.replace('public',''));
         req.body.updated_at = (new Date()).getTime();
         req.body.location = [req.body.lng, req.body.lat];
+        req.body.images = req.headers.origin + req.file.path.replace('public','');
         MongoClient.connect(config.db.url, (err, db) => {
             db.collection('user').update({ user_id: req.user.user_id }, {$set:req.body}, err => {
                 res.redirect('/');
