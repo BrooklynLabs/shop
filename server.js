@@ -127,14 +127,14 @@ app.post('/signup', (req, res) => {
     }
 })
 
-app.use('/uploads/*', (req, res, next){
+app.use('/uploads/*', (req, res, next)=>{
     res.setHeader('Content-Type', 'image/jpg');
     next();
 })
 
 app.use('/api', api);
 
-app.use(function(req, res, next) {
+app.use(function(req, res, next){
 
     if (req.isAuthenticated()) {
         next();
