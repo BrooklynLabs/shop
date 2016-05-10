@@ -127,10 +127,7 @@ app.post('/signup', (req, res) => {
     }
 })
 
-app.use('/uploads/*', (req, res, next)=>{
-    res.setHeader('Content-Type', 'image/jpg');
-    next();
-})
+
 
 app.use('/api', api);
 
@@ -146,6 +143,10 @@ app.use(function(req, res, next){
 
 require('./server/main.controller')(app, config, MongoClient, upload);
 
+app.use('/uploads/*', (req, res, next)=>{
+    res.setHeader('Content-Type', 'image/jpg');
+    next();
+})
 
 app.use('/', express.static(__dirname + "/public"));
 
