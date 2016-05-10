@@ -143,7 +143,7 @@ app.use(function(req, res, next){
 
 require('./server/main.controller')(app, config, MongoClient, upload);
 
-app.use('/uploads/*', (req, res, next)=>{
+app.use('/uploads', (req, res, next)=>{
     res.setHeader('Content-Type', 'image/jpg');
     next();
 })

@@ -44,7 +44,7 @@ class Shopylytics extends Component {
       return(
         <Card>
             <Card.Media
-                image={<Image source={{uri : "https://shopylytics.herokuapp.com/uploads/d54d8a64af9b7bc79643ad8c59c90982" }} style={{width: 400, height: 400}}/>}
+                image={<Image source={{uri : img }} style={{width: 400, height: 400}}/>}
                 overlay
             />
             <Card.Body>
