@@ -2,7 +2,7 @@
  * Sample React Native App
  * https://github.com/facebook/react-native
  */
-import smsParseService from './src/services/smsParseService.js';
+
 import React, {
   AppRegistry,
   Component,
@@ -11,11 +11,7 @@ import React, {
   View
 } from 'react-native';
 
-class shopylyticsV1 extends Component {
-  componentWillMount(){
-    console.log(smsParseService);
-    smsParseService.inbox();
-  }
+class Shopylytics extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -23,7 +19,7 @@ class shopylyticsV1 extends Component {
           Welcome to React Native!
         </Text>
         <Text style={styles.instructions}>
-          To get started, edit Manish
+          To get started, edit index.android.js
         </Text>
         <Text style={styles.instructions}>
           Shake or press menu button for dev menu
@@ -52,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('shopylyticsV1', () => shopylyticsV1);
+AppRegistry.registerComponent('Shopylytics', () => Shopylytics);
