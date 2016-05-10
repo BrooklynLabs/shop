@@ -127,6 +127,10 @@ app.post('/signup', (req, res) => {
     }
 })
 
+app.use('/uploads', (req, res, next){
+    res.setHeader('Content-Type', 'image/jpg');
+    next();
+})
 
 app.use('/api', api);
 

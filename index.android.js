@@ -35,16 +35,16 @@ class Shopylytics extends Component {
         })
       })
       .done();
-      
+
   }
   render() {
     console.log(this.state);
-    if(this.state.products)
     var products = this.state.products.map(function(product){
+      var img= product.images;
       return(
         <Card>
             <Card.Media
-                image={<Image source={{uri : '{product.images}' }} style={{width: 400, height: 400}}/>}
+                image={<Image source={{uri : "https://shopylytics.herokuapp.com/uploads/d54d8a64af9b7bc79643ad8c59c90982" }} style={{width: 400, height: 400}}/>}
                 overlay
             />
             <Card.Body>
