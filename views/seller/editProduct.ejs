@@ -1,16 +1,76 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title><%= role %></title>
+	<meta charset="UTF-8" />
+	<title>Admin</title>
 
 	<%- include('../partials/header')%>
 
 </head>
 <body>
+	<section id="container">
 	<%- include('../partials/topbar')%>
 	<%- include('../partials/sidebar')%>
-	
+	<section id="main-content">
+	<!-- <br /><br> <br> -->
+	<section class="wrapper">
+		<h2>Add Product</h2>
+		
+		<form id="productform" action="/api/v1/product/edit" method="POST" class="form-horizontal" enctype='multipart/form-data' role="form">
+			<div class="form-group row">
+				<label for="prod_name" class="col-sm-offset-1 col-sm-2 form-control-label"> Name</label>
+				<div class="col-sm-6">
+					<input id="prod_name" class="form-control" type="Text" name="prod_name" placeholder="Name" value="<%= p.prod_name %>"readonly></input>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="prod_category" class="col-sm-offset-1 col-sm-2 form-control-label">Category</label>
+				<div class="col-sm-6">
+					<select id="prod_category" class="form-control" name="prod_category" form="productform" readonly>
+						<option value="electronics">Electronics</option>
+						<option value="home">Home</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="description" class="col-sm-offset-1 col-sm-2 form-control-label">Description</label>
+				<div class="col-sm-6">
+					<textarea class="form-control" id="description" rows="5" form="productform" name="description" placeholder="Product Description" readonly><%= p.description %></textarea>
+				</div>
+			</div>
+			<input id="images" class="form-control" type="hidden" name="images" value="<%= p.images %>" ></input>
+			<div class="form-group row">
+				<label for="prod_mrp" class="col-sm-offset-1 col-sm-2 form-control-label">MRP of Product</label>
+				<div class="col-sm-6">
+					<div class="input-group">
+					<div class="input-group-addon"><i class="fa fa-inr"></i></div>
+					<input id="prod_mrp" class="form-control" type="number" name="prod_mrp" value="<%= p.prod_mrp %>"placeholder="Amount" readonly></input>
+					</div>
+
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label for="seller_mrp" class="col-sm-offset-1 col-sm-2 form-control-label">Your Price</label>
+				<div class="col-sm-6">
+					<div class="input-group">
+					<div class="input-group-addon"><i class="fa fa-inr"></i></div>
+					<input id="seller_mrp" class="form-control" type="number" name="seller_mrp" value="<%= p.seller_mrp %>"placeholder="Amount" min="1" max="<%= p.prod_mrp %>"required></input>
+					</div>
+
+				</div>
+			</div>
+			<input type="hidden" name="prod_id" value="<%= p.prod_id %>"></input>
+			<div class="form-group row">
+				<div class="col-sm-offset-3 col-sm-6">
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
+			</div>
+		</form>
+	</section>
+	</section>
+	</section>
 	
 	<%- include('../partials/footer')%>
 </body>

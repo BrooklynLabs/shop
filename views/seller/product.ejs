@@ -8,13 +8,36 @@
 
 </head>
 <body>
-	<section id="container">
+	<section id="container" class="">
 	<%- include('../partials/topbar')%>
 	<%- include('../partials/sidebar')%>
 	
-	<h2>List Product</h2>
-	
-	<%- include('../partials/footer')%>
+	<section id="main-content">
+	<section class="wrapper">
+	<h2>Product List</h2>
+	<div class="row">
+		
+		<% for (var i=0; i<products.length ; i++){ %>
+			<div class="col-sm-4">
+			<div class="card">
+			<img class="card-img-top" src="<%= products[i].images%>" width="100%">
+			<div class="card-block">
+				<h4 class="card-title"><%= products[i].prod_name%></h4>
+				<h6 class="card-subtitle text-muted"><%= products[i].prod_category %></h6>
+				<p><%= products[i].description %></p>
+				<a href="/product/edit/<%= products[i].prod_id%>?seller_edit=true" class="btn btn-primary">Edit</a>
+				<button class="btn btn-danger"><i class="fa fa-inr"></i> <%= products[i].seller_mrp %></button>
+			</div>
+			</div>
+			</div>
+		<%}%>
+		
+	</div>
 	</section>
+	</section>
+	</section>
+
+	<%- include('../partials/footer')%>
+
 </body>
 </html>

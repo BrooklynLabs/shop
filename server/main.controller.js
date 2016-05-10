@@ -2,14 +2,14 @@ var fetch = require('node-fetch');
 module.exports = function(app, config, MongoClient, upload) {
 
     app.get('/', (req, res) => {
-        console.log(req.user);
+        // console.log(req.user);
         var obj = req.user;
         MongoClient.connect(config.db.url, (err, db) => {
             db.collection('user').count({ role: 'SELLER' }, (err, seller_count) => {
-                db.collection('product').count({ role: 'ADMIN' }, (err, product_count) => {
+                db.collection('product').count({ role: req.user.role }, (err, product_count) => {
                     db.close();
                     obj.seller_count = seller_count || 0;
-                    obj.product_count = product_count||0;
+                    obj.product_count = product_count || 0;
                     // console.log(seller_count)
                     res.render('dashboard', obj);
                 })
@@ -72,7 +72,7 @@ module.exports = function(app, config, MongoClient, upload) {
         //console.log(req.user.role);
         if (req.user.role == 'ADMIN') {
             var obj = req.user;
-            fetch(config.host + '/api/v1/product')
+            fetch(config.host + '/api/v1/product?user_id=' + req.user.user_id+'&role=ADMIN')
                 .then(response => {
                     return (response).json();
                 })
@@ -83,18 +83,29 @@ module.exports = function(app, config, MongoClient, upload) {
 
         } else {
             var obj = req.user;
-            fetch(config.host + '/api/v1/product')
+            fetch(config.host + '/api/v1/product?user_id=' + req.user.user_id+'&role=SELLER')
                 .then(response => {
                     return (response).json();
                 })
                 .then(products => {
+                    console.log(products);
                     obj.products = products.result;
                     res.render('seller/product', obj);
                 });
         }
 
     });
-
+    app.get('/product/admin', (req, res) => {
+        var obj = req.user;
+        fetch(config.host + '/api/v1/product?role=ADMIN&user_id=12')
+            .then(response => {
+                return (response).json();
+            })
+            .then(products => {
+                obj.products = products.result;
+                res.render('seller/adminProduct', obj);
+            });
+    })
     app.get('/product/add', (req, res) => {
         if (req.user.role == 'ADMIN')
             res.render('admin/addProduct', req.user);
@@ -107,18 +118,34 @@ module.exports = function(app, config, MongoClient, upload) {
         if (req.user.role == 'ADMIN') {
             var obj = req.user;
             MongoClient.connect(config.db.url, (err, db) => {
-                    db.collection('product').find({ prod_id: req.params.prod_id }).toArray((err, product) => {
-                        console.log(product);
-                        for (key in product[0]) {
-                            obj[key] = product[0][key];
-                        }
-                        // console.log(obj);
-                        res.render('admin/editProduct', obj);
-                    })
+                db.collection('product').find({ prod_id: req.params.prod_id }).toArray((err, product) => {
+                    console.log(product);
+                    for (key in product[0]) {
+                        obj[key] = product[0][key];
+                    }
+
+                    res.render('admin/editProduct', obj);
                 })
-                // res.render('admin/editProduct', req.user);
-        } else
-            res.render('seller/editProduct', req.user);
+            })
+
+        } else {
+            var obj = req.user;
+            MongoClient.connect(config.db.url, (err, db) => {
+                db.collection('product').find({ prod_id: req.params.prod_id }).toArray((err, product) => {
+                    // console.log(product);
+                    obj.p ={};
+                    for (key in product[0]) {
+                        obj.p[key] = product[0][key];
+                    }
+                    // console.log(obj);
+                    if(req.query.seller_edit){
+                        res.render('seller/editProduct', obj);
+                    }
+                    else
+                    res.render('seller/editAdminProduct', obj);
+                })
+            })
+        }
     })
 
     app.get('/product/:id', (req, res) => {

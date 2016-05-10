@@ -80,7 +80,7 @@ app.post('/login', (req, res) => {
 
     passport.authenticate('local', (err, user, info) => {
         if (err || !user) {
-            res.redirect('/login?message='+info.message);
+            res.redirect('/login?message=' + info.message);
             return;
         }
         delete user.password;
@@ -102,18 +102,23 @@ app.get('/signup', (req, res) => {
     res.render('signup', { message: "" });
 })
 app.post('/signup', (req, res) => {
-    if (!req.body.name || !req.body.password || !req.body.role || (req.body.role !='SELLER'&& req.body.role!='ADMIN') ) { //|| req.body.role != 'user'
+    console.log(req.body);
+    if (!req.body.email || !req.body.password || !req.body.role) { //|| req.body.role != 'user'
         res.render('signup', { message: "Incomplete form" });
     } else {
         MongoClient.connect(config.db.url, (err, db) => {
             var user = req.body;
             user.user_id = randomstring.generate(10);
-            db.collection('user').insert(user, (err) => {
+            db.collection('user').insert(user, (err, info) => {
+                console.log(info);
                 if (!err) {
-                    req.logIn(user, err=>{
-                        res.redirect('/profile');
+                    req.logIn(user, err => {
+                        if (req.body.role == "USER") {
+                            res.send({ error: 0, status: "Registered", data:info.ops[0] });
+                        } else
+                            res.redirect('/profile');
                     })
-                    
+
                 } else {
                     res.render('signup', { message: err });
                 }

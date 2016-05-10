@@ -17,6 +17,9 @@
                         <ul class="sub">
                             <li><a class="" href="/product">List Products</a></li>
                             <li><a class="" href="/product/add">Add Product</a></li>
+                            <% if(role=='SELLER'){%>
+                            <li><a class="" href="/product/admin"> Admin Product</a></li>
+                            <%}%>
                         </ul>
                     </li>
                     <li class="sub-menu">
