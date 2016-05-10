@@ -4,6 +4,7 @@ module.exports = function(app, config, MongoClient, upload) {
     app.get('/', (req, res) => {
         // console.log(req.user);
         var obj = req.user;
+        (obj.images) = obj.images || "http://www.hyderabadangels.in/wp-content/uploads/2015/02/pplaceholder2.jpg";
         MongoClient.connect(config.db.url, (err, db) => {
             db.collection('user').count({ role: 'SELLER' }, (err, seller_count) => {
                 db.collection('product').count({ role: req.user.role }, (err, product_count) => {

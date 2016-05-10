@@ -30,6 +30,9 @@
     "react": "^0.14.8",
     "react-native": "^0.24.1",
     "react-native-android-sms": "0.0.1",
+    "react-native-device-info": "^0.9.3",
+    "react-native-material-design": "^0.3.5",
+    "react-native-material-kit": "^0.3.1",
     "serve-favicon": "~2.3.0",
     "watchify": "^3.7.0"
   },
